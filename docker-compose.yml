@@ -1,0 +1,59 @@
+version: '3.3'
+
+services:
+
+  registry:
+    # Specify the image with version.
+    image: registry:2.6.2
+    # Expose only 443 port. Though HTTP also works,
+    # I want to use this code with GitLab, which only supports HTTPS communication with Docker Registry.
+    expose:
+      - "443"
+    volumes:
+      # Mount SSL certificates.
+      - ./registry/certs:/certs
+      # Mount the configuration file.
+      - ./registry/etc/docker/registry/config.yml:/etc/docker/registry/config.yml
+    environment:
+      # Specify which port will be used for pushing docker images.
+      REGISTRY_HTTP_ADDR: 0.0.0.0:443
+      # Specify certificates
+      REGISTRY_HTTP_TLS_CERTIFICATE: ./certs/domain.crt
+      REGISTRY_HTTP_TLS_KEY: ./certs/domain.key
+
+  minio:
+    # Specify the image with version.
+    image: minio/minio:RELEASE.2018-12-19T23-46-24Z
+    # Forwarding a port to local.
+    # This is optional, so you can comment out these lines
+    # unless you want to try to login to Minio.
+    ports:
+      - "9000:9000"
+    volumes:
+      # Mount data directory.
+      - ./minio/data:/data
+      # Mount configuration directory.
+      - ./minio/root/.minio:/root/.minio
+    # Execute Minio server.
+    command: server /data
+
+  docker:
+    # Specify the image with version.
+    image: docker:dind
+    # Set privileged to true for docker in docker.
+    privileged: true
+    volumes:
+      # Mount SSL certificates so that
+      # Docker in Docker container trusts Docker Registry container.
+      # (If certificates are not mounted, pushing images will fail)
+      # The reason why long syntax is used in this part is
+      # that short syntax cannot handle colon.
+      - type: bind
+        source: ./registry/certs/domain.crt
+        target: /etc/docker/certs.d/registry:443/ca.crt
+
+# Set default network so that containers can resolve each other's hostname.
+networks:
+  default:
+    external:
+      name: registry0

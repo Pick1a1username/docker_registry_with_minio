@@ -6,12 +6,23 @@ Docker Registry with Minio Using Docker Compose
 
 This section assumes that you know the basic usage of `Docker` and `Docker Compose`.
 
-If you want to understand `docker-compose.yml` in this repository in detail, please refer to [DOCKER-COMPOSE_EXPLAINED.md](DOCKER-COMPOSE_EXPLAINED.md).
+If you want to understand `docker-compose.yml` in this repository in detail, please refer to comments in  [docker-compose.yml](docker-compose.yml).
 
 
 ### Prerequisites
 
 * Docker Compose
+
+
+### Overview
+
+There are three services: Docker Registry, Minio, Docker in Docker.
+
+* Docker Registry: Storing docker images
+* Minio: Object storage compatible with Amazon S3. Used for Docker Registry's storage.
+* Docker in Docker: Used for pulling and pushing a docker image to the Docker Registry.
+
+As explained above, if an user pushes a docker image to the Docker Registry, Docker Registry will store the image to the Minio.
 
 
 ### Clone the Repository
@@ -98,6 +109,9 @@ health:
     threshold: 3
 $
 ```
+
+### Create a Network
+
 
 
 ### Run the Apps
