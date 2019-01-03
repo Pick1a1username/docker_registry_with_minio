@@ -30,7 +30,7 @@ As explained above, if an user pushes a docker image to the Docker Registry, Doc
 Clone this repository using `git clone`
 
 ```
-$ https://github.com/Pick1a1username/docker_registry_with_minio.git
+$ git clone https://github.com/Pick1a1username/docker_registry_with_minio.git
 ```
 
 
@@ -63,12 +63,41 @@ $ mkdir -p ./registry/etc/docker/registry # This must be already exist.
 
 Create Self-signed SSL certificates so that Docker Registry use HTTPS.
 
+At least `Common Name` must be same as Docker Registry's hostname, `registry`.
+
 ```
 $ openssl req \
   -newkey rsa:4096 -nodes -sha256 -keyout ./registry/certs/domain.key \
   -x509 -days 365 -out ./registry/certs/domain.crt
 ```
 
+
+Example:
+```
+$ openssl req \
+>   -newkey rsa:4096 -nodes -sha256 -keyout ./registry/certs/domain.key \
+>   -x509 -days 365 -out ./registry/certs/domain.crt
+Generating a 4096 bit RSA private key
+....++
+...............................................................++
+writing new private key to './registry/certs/domain.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:
+State or Province Name (full name) [Some-State]:
+Locality Name (eg, city) []:
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+Organizational Unit Name (eg, section) []:
+Common Name (e.g. server FQDN or YOUR name) []:registry
+Email Address []:
+$
+```
 
 ### Edit `config.yml` of Docker Registry
 
@@ -88,11 +117,14 @@ storage:
   # filesystem:
   #    rootdirectory: /var/lib/registry
   s3:
+    # Refer to the following link for details:
+    # https://docs.docker.com/registry/storage-drivers/s3/#parameters
     accesskey: AKIAIOSFODNN7EXAMPLE
     secretkey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    # us-east-1 set below is dummy.
     region: us-east-1
     regionendpoint: http://minio:9000
-    bucket: registry
+    bucket: test0
     encrypt: false
     secure: false
     v4auth: true

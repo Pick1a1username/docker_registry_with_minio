@@ -34,6 +34,10 @@ services:
       - ./minio/data:/data
       # Mount configuration directory.
       - ./minio/root/.minio:/root/.minio
+    environment:
+      # Set keys
+      MINIO_ACCESS_KEY: AKIAIOSFODNN7EXAMPLE
+      MINIO_SECRET_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
     # Execute Minio server daemon.
     command: server /data
 
