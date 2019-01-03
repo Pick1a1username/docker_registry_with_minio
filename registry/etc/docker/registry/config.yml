@@ -1,0 +1,29 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+storage:
+  cache:
+    blobdescriptor: inmemory
+  # filesystem:
+  #    rootdirectory: /var/lib/registry
+  s3:
+    accesskey: AKIAIOSFODNN7EXAMPLE
+    secretkey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    region: us-east-1
+    regionendpoint: http://minio:9000
+    bucket: test0
+    encrypt: false
+    secure: false
+    v4auth: true
+    chunksize: 5242880
+    rootdirectory: /
+http:
+  addr: :5000
+  headers:
+    X-Content-Type-Options: [nosniff]
+health:
+  storagedriver:
+    enabled: true
+    interval: 10s
+    threshold: 3
