@@ -14,13 +14,13 @@ If you want to understand `docker-compose.yml` in this repository in detail, ple
 * Docker Compose
 
 
-### Overview
+### How it works?
 
 There are three services: Docker Registry, Minio, Docker in Docker.
 
 * Docker Registry: Storing docker images
 * Minio: Object storage compatible with Amazon S3. Used for Docker Registry's storage.
-* Docker in Docker: Used for pulling and pushing a docker image to the Docker Registry.
+* Docker in Docker: Used for pulling and pushing docker images to the Docker Registry.
 
 As explained above, if an user pushes a docker image to the Docker Registry, Docker Registry will store the image to the Minio.
 
@@ -72,7 +72,7 @@ $ openssl req \
 
 ### Edit `config.yml` of Docker Registry
 
-`config.yml` is included in this repository, and what you need to do is to specify Minio's keys so that Docker Registry can use Minio.
+`config.yml` is included in this repository, and what you need to do is to specify Minio's keys set above to `accesskey` and `secretkey` so that Docker Registry can use Minio.
 
 
 ```
@@ -112,6 +112,10 @@ $
 
 ### Create a Network
 
+```
+$ docker network create registry0
+$ docker network ls
+```
 
 
 ### Run the Apps
@@ -128,11 +132,19 @@ Get into the Docker in Docker container, and pull and push a docker image.
 
 Note that pushing a docker image from host doesn't work since host OS cannot resolve Minio's hostname(`minio`).
 
+```
+$ docker exec -it <Container ID of Docker in Docker> sh
+# docker pull ubuntu
+# docker tag ubuntu registry:443/ubuntu
+# docker push registry:443/ubuntu
+```
+
 
 ## References
 
 ### Docker Registry
 
+* https://hub.docker.com/_/registry/
 * https://docs.docker.com/registry/insecure/
 * https://gist.github.com/leanderjanssen/0e5532dc5818ab84b54b06cf80ad93ed
 * https://medium.com/@enne/use-minio-as-docker-registry-storage-driver-c9c72c72cc87
@@ -148,6 +160,9 @@ Note that pushing a docker image from host doesn't work since host OS cannot res
 
 * https://hub.docker.com/_/docker
 
+### Etc.
+
+* https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 
 ## Contributing
 

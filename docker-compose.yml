@@ -34,12 +34,12 @@ services:
       - ./minio/data:/data
       # Mount configuration directory.
       - ./minio/root/.minio:/root/.minio
-    # Execute Minio server.
+    # Execute Minio server daemon.
     command: server /data
 
   docker:
     # Specify the image with version.
-    image: docker:dind
+    image: docker:18.09.0-dind
     # Set privileged to true for docker in docker.
     privileged: true
     volumes:
