@@ -52,10 +52,7 @@ Create Directories required for apps.
 
 ```
 $ cd docker_registry_with_minio
-$ mkdir -p ./minio/data
-$ mkdir -p ./minio/root/.minio
-$ mkdir -p ./registry/certs
-$ mkdir -p ./registry/etc/docker/registry # This must be already exist.
+$ mkdir -p ./minio/data ./minio/root/.minio ./registry/certs ./registry/etc/docker/registry 
 ```
 
 

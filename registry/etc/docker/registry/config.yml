@@ -15,7 +15,7 @@ storage:
     # us-east-1 set below is dummy.
     region: us-east-1
     regionendpoint: http://minio:9000
-    bucket: test0
+    bucket: registry
     encrypt: false
     secure: false
     v4auth: true
