@@ -52,7 +52,7 @@ Create Directories required for apps.
 
 ```
 $ cd docker_registry_with_minio
-$ mkdir -p ./minio/data ./minio/root/.minio ./registry/certs ./registry/etc/docker/registry 
+$ mkdir -p ./minio/data ./minio/root/.minio ./registry/certs ./registry/etc/docker/registry
 ```
 
 
@@ -163,9 +163,9 @@ Note that pushing a docker image from host doesn't work since host OS cannot res
 
 ```
 $ docker exec -it <Container ID of Docker in Docker> sh
-# docker pull ubuntu
-# docker tag ubuntu registry:443/ubuntu
-# docker push registry:443/ubuntu
+# docker pull alpine \
+&& docker tag alpine registry:5000/alpine \
+&& docker push registry:5000/alpine
 ```
 
 

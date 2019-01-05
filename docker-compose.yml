@@ -16,7 +16,7 @@ services:
       - ./registry/etc/docker/registry/config.yml:/etc/docker/registry/config.yml
     environment:
       # Specify which port will be used for pushing docker images.
-      REGISTRY_HTTP_ADDR: 0.0.0.0:443
+      REGISTRY_HTTP_ADDR: 0.0.0.0:5000
       # Specify certificates
       REGISTRY_HTTP_TLS_CERTIFICATE: ./certs/domain.crt
       REGISTRY_HTTP_TLS_KEY: ./certs/domain.key
@@ -54,7 +54,7 @@ services:
       # that short syntax cannot handle colon.
       - type: bind
         source: ./registry/certs/domain.crt
-        target: /etc/docker/certs.d/registry:443/ca.crt
+        target: /etc/docker/certs.d/registry:5000/ca.crt
 
 # Set default network so that containers can resolve each other's hostname.
 networks:
