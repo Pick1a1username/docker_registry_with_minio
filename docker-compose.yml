@@ -25,6 +25,8 @@ services:
     # unless you want to try to login to Minio.
     ports:
       - "9000:9000"
+    expose:
+      - 9000
     volumes:
       # Mount data directory.
       - ./minio/data:/data

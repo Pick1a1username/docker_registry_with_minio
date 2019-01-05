@@ -100,6 +100,10 @@ Run the apps and test it.
 $ docker-compose up -d
 ```
 
+
+### Create a Bucket
+
+
 ### Test Registry
 
 Get into the Docker in Docker container, and pull and push a docker image.
