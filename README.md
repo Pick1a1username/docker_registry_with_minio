@@ -33,19 +33,6 @@ Clone this repository using `git clone`
 $ git clone https://github.com/Pick1a1username/docker_registry_with_minio.git
 ```
 
-
-### Edit `docker-compose.yml`
-
-Set Minio's access key and secret.
-
-(You can also use values already set if it's only for test)
-
-```
-MINIO_ACCESS_KEY: AKIAIOSFODNN7EXAMPLE
-MINIO_SECRET_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-```
-
-
 ### Create Directories
 
 Create Directories required for apps.
@@ -96,48 +83,6 @@ Email Address []:
 $
 ```
 
-### Edit `config.yml` of Docker Registry
-
-`config.yml` is included in this repository, and what you need to do is to specify Minio's keys set above to `accesskey` and `secretkey` so that Docker Registry can use Minio.
-
-
-```
-$ vi ./registry/etc/docker/registry/config.yml
-$ cat ./registry/etc/docker/registry/config.yml
-version: 0.1
-log:
-  fields:
-    service: registry
-storage:
-  cache:
-    blobdescriptor: inmemory
-  # filesystem:
-  #    rootdirectory: /var/lib/registry
-  s3:
-    # Refer to the following link for details:
-    # https://docs.docker.com/registry/storage-drivers/s3/#parameters
-    accesskey: AKIAIOSFODNN7EXAMPLE
-    secretkey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-    # us-east-1 set below is dummy.
-    region: us-east-1
-    regionendpoint: http://minio:9000
-    bucket: test0
-    encrypt: false
-    secure: false
-    v4auth: true
-    chunksize: 5242880
-    rootdirectory: /
-http:
-  addr: :5000
-  headers:
-    X-Content-Type-Options: [nosniff]
-health:
-  storagedriver:
-    enabled: true
-    interval: 10s
-    threshold: 3
-$
-```
 
 ### Create a Network
 

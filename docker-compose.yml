@@ -5,10 +5,6 @@ services:
   registry:
     # Specify the image with version.
     image: registry:2.6.2
-    # Expose only 443 port. Though HTTP also works,
-    # I want to use this code with GitLab, which only supports HTTPS communication with Docker Registry.
-    expose:
-      - "443"
     volumes:
       # Mount SSL certificates.
       - ./registry/certs:/certs
@@ -16,7 +12,7 @@ services:
       - ./registry/etc/docker/registry/config.yml:/etc/docker/registry/config.yml
     environment:
       # Specify which port will be used for pushing docker images.
-      REGISTRY_HTTP_ADDR: 0.0.0.0:5000
+      REGISTRY_HTTP_ADDR: registry:5000
       # Specify certificates
       REGISTRY_HTTP_TLS_CERTIFICATE: ./certs/domain.crt
       REGISTRY_HTTP_TLS_KEY: ./certs/domain.key
@@ -36,8 +32,8 @@ services:
       - ./minio/root/.minio:/root/.minio
     environment:
       # Set keys
-      MINIO_ACCESS_KEY: AKIAIOSFODNN7EXAMPLE
-      MINIO_SECRET_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+      MINIO_ACCESS_KEY: testaccesskey
+      MINIO_SECRET_KEY: testsecretkey
     # Execute Minio server daemon.
     command: server /data
 

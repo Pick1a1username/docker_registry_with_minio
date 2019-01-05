@@ -10,8 +10,8 @@ storage:
   s3:
     # Refer to the following link for details:
     # https://docs.docker.com/registry/storage-drivers/s3/#parameters
-    accesskey: AKIAIOSFODNN7EXAMPLE
-    secretkey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    accesskey: testaccesskey
+    secretkey: testsecretkey
     # us-east-1 set below is dummy.
     region: us-east-1
     regionendpoint: http://minio:9000
