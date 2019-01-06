@@ -1,0 +1,32 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+storage:
+  cache:
+    blobdescriptor: inmemory
+  # filesystem:
+  #    rootdirectory: /var/lib/registry
+  s3:
+    # Refer to the following link for details:
+    # https://docs.docker.com/registry/storage-drivers/s3/#parameters
+    accesskey: testaccesskey
+    secretkey: testsecretkey
+    # us-east-1 set below is dummy.
+    region: us-east-1
+    regionendpoint: http://minio:9000
+    bucket: registry
+    encrypt: false
+    secure: false
+    v4auth: true
+    chunksize: 5242880
+    rootdirectory: /
+http:
+  addr: :5000
+  headers:
+    X-Content-Type-Options: [nosniff]
+health:
+  storagedriver:
+    enabled: true
+    interval: 10s
+    threshold: 3
