@@ -103,6 +103,12 @@ $ docker-compose up -d
 
 ### Create a Bucket
 
+Connect to `localhost:9000` with a web browser, and create a bucket named `registry`.
+
+Refer to [docker-compose.yml](docker-compose.yml) to get the access key and secret key.
+
+UI of Minio is so simple that you should be able to create a bucket even if you have no experience.
+
 
 ### Test Registry
 
@@ -116,6 +122,10 @@ $ docker exec -it <Container ID of Docker in Docker> sh
 && docker tag alpine registry:5000/alpine \
 && docker push registry:5000/alpine
 ```
+
+If it fails, try to restart containers by `docker-compose down` and `docker-compose up -d` about three times.
+
+I don't yet find the reason why it fails at first time.
 
 
 ## References
