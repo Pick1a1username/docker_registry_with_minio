@@ -125,7 +125,7 @@ $ docker exec -it <Container ID of Docker in Docker> sh
 
 If it fails, try to restart containers by `docker-compose down` and `docker-compose up -d` about three times.
 
-I don't yet find the reason why it fails at first time.
+I haven't yet found the reason why it fails at first time.
 
 
 ## References
